@@ -38,6 +38,28 @@
                     <input type="email" name="email" class="form-control" id="email" value="{{ $siswa->email }}">
                 </div>
 
+                <div class="form-group">
+                    <label for="foto">Foto Siswa</label>
+                    
+                     @if($siswa->foto)
+                        <div class="mb-2">
+                            <p class="text-muted">Foto saat ini:</p>
+                            <img src="{{ asset('storage/' . $siswa->foto) }}" alt="Foto Lama" class="img-thumbnail" style="width: 150px;">
+                        </div>
+                     @endif
+
+                    <input type="file" name="foto" class="form-control-file @error('foto') is-invalid @enderror" id="foto" accept="image/*">
+                    <small class="form-text text-muted">
+                        Biarkan kosong jika tidak ingin mengubah foto. Format: JPG, PNG. Max 2MB.
+                    </small>
+                    
+                     @error('foto')
+                        <span class="text-danger" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+
                 <button type="submit" class="btn btn-primary">Update</button>
                 <a href="{{ route('siswa.index') }}" class="btn btn-secondary">Batal</a>
             </form>

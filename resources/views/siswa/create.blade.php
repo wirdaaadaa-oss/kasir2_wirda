@@ -62,6 +62,16 @@
                     @enderror
                 </div>
 
+                <div class="form-group">
+     <label for="foto">Foto</label>
+     <input type="file" name="foto" class="form-control-file @error('foto') is-invalid @enderror" id="foto" accept="image/*">
+      <small class="form-text form-muted">Format: JPG, JPEG, PNG. Maksimal 2MB.</small>
+        @error('foto')
+          <span class="text-danger" role="alert">
+                 <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+    </div>
                 <button type="submit" class="btn btn-primary">Simpan</button>
                 <a href="{{ route('siswa.index') }}" class="btn btn-secondary">Batal</a>
             </form>

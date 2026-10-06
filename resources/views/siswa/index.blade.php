@@ -12,9 +12,6 @@
         <div class="card-header">
             <h3 class="card-title">Daftar Siswa</h3>
             <div class="card-tools">
-                <a href="{{ route('siswa.cetak-pdf') }}" class="btn btn-danger btn-sm" target="_blank">
-                    <i class="fas fa-file-pdf"></i> Cetak PDF
-                </a>
                 <a href="{{ route('siswa.create') }}" class="btn btn-primary btn-sm">
                     <i class="fas fa-plus"></i> Tambah Siswa
                 </a>

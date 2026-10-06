@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use illuminate\Http\Request;
 use App\Models\Siswa;
+use Illuminate\Support\Facades\Storage;
+
+class SiswaController extends Controller
+{
 public function index(Request $request)
     {
 	    //Filter search
@@ -30,8 +35,11 @@ public function index(Request $request)
             'jurusan'    => 'required|string|max:100',
             'kelas'      => 'required|string|max:50',
             'email'      => 'nullable|email|unique:siswas',
+            'foto'       => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
         ]);
-
+         if($request->hasFile('foto')){
+            $data['foto'] = $request->file('foto')->store('foto-siswa', 'public');
+         }
         // Simpan data langsung (tanpa perlu definisikan satu-satu)
         Siswa::create($data);
 
@@ -52,8 +60,15 @@ public function index(Request $request)
             'jurusan'    => 'required|string|max:100',
             'kelas'      => 'required|string|max:50',
             'email'      => 'nullable|email|unique:siswas,email,'.$siswa->id,
+            'foto'       => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-
+        if ($request->hasFile('foto')) {
+            // Hapus foto LAMA jika ada
+            if ($siswa->foto && Storage::disk('public')->exists($siswa->foto)) {
+                Storage::disk('public')->delete($siswa->foto);
+            }
+             $data['foto'] = $request->file('foto')->store('foto-siswa', 'public');
+        }
         // Update data langsung
         $siswa->update($data);
 
@@ -67,9 +82,12 @@ public function index(Request $request)
     
     public function destroy(Siswa $siswa)
     {
-
+        if ($siswa->foto && Storage::disk('public')->exists($siswa->foto)) {
+            Storage::disk('public')->delete($siswa->foto);
+        }
         $siswa->delete();
 
         return redirect()->route('siswa.index')->with('success', 'Data siswa berhasil dihapus.');
     }
     
+}
