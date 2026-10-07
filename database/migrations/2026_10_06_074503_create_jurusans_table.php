@@ -13,12 +13,10 @@ return new class extends Migration
     {
         Schema::create('jurusans', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_jurusan', 20)->unique();
-            $table->string('nama_jurusan',20);
-            $table->string('keterangan',200);
-            $table->string('status');
-            $table->timestamp('created_at',6)->nullable(); 
-            $table->timestamp('updated_at',6)->nullable(); 
+            $table->string('kode_jurusan')->unique();
+            $table->string('nama_jurusan');
+            $table->string('keterangan');
+            $table->enum('status');
             $table->timestamps();
         });
     }
