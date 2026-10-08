@@ -7,9 +7,10 @@ use Illuminate\Database\Eloquent\Factories\Hasfaktory;
 
 class jurusan extends Model
 {
-    use Hasfaktory;
+    use Hasfactory;
     PROTECTED $table = 'jurusans';
-    protected $fillable = [
+    protected $fillable = 
+    [
         'kode_jurusan',
         'nama_jurusan',
         'keterangan',
