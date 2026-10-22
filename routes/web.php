@@ -21,6 +21,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('siswa', SiswaController::class);
     Route::get('/siswa/cetak-pdf', [SiswaController::class, 'cetakPdf'])->name('siswa.cetak-pdf');
     Route::resource('jurusan',JurusanController::class);
+    Route::resource('jenjang',JenjangController::class);
 });
 
 require __DIR__ . '/auth.php';
